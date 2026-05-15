@@ -116,10 +116,10 @@ func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, `{"error":"not found"}`)
 }
 
-// getEnv retrieves an environment variable or returns a default value
-func getEnv(key, defaultValue string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
+// getEnv returns the value of an environment variable or a default value
+func getEnv(key, defaultVal string) string {
+	if val, ok := os.LookupEnv(key); ok {
+		return val
 	}
-	return defaultValue
+	return defaultVal
 }
