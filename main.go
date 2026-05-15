@@ -84,8 +84,9 @@ type AppConfig struct {
 
 // loadConfig reads configuration from environment variables
 func loadConfig() (*AppConfig, error) {
+	// Changed default port to 9090 to avoid conflicts with other local services on my machine
 	host := getEnv("APP_HOST", "0.0.0.0")
-	port := getEnv("APP_PORT", "8080")
+	port := getEnv("APP_PORT", "9090")
 	env := getEnv("APP_ENV", "development")
 
 	return &AppConfig{
@@ -117,7 +118,7 @@ func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 
 // getEnv retrieves an environment variable or returns a default value
 func getEnv(key, defaultValue string) string {
-	if value, ok := os.LookupEnv(key); ok {
+	if value, exists := os.LookupEnv(key); exists {
 		return value
 	}
 	return defaultValue
